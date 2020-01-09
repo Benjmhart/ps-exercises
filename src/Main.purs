@@ -11,24 +11,36 @@ import Data.Newtype (class Newtype, unwrap)
 import Data.Traversable (class Traversable)
 import Data.Tuple (Tuple(..))
 
--- needs eq, ord, generic, show
+-- 1. ProductName needs eq, ord, generic, show
 
 newtype ProductName = ProductName String
 
--- needs eq, ord, generic, show, semigroup, monoid, semiring, ring, CommutativeRing, EuclideanRing, DivisionRing, Field
+-- 2. Price needs eq, ord, generic, show, semigroup, monoid, semiring, ring, CommutativeRing, EuclideanRing, DivisionRing, Field
 newtype Price = Price Int
 
 data LineItem 
   = LineItem 
   { name :: ProductName
   , qty  :: Int
-  , price :: Int
+  , price :: Price
   }
 
--- needs Functor, applicative, monad, foldable, traversable
+-- 3. give LineItem a smart Constructor
+
+-- 4. needs Functor, applicative, monad, foldable, traversable
 data Box a = Box a
 
 
+-- 5. make Transaction less repetitive
+
+transaction 
+  = [ LineItem { name: ProductName "shoe", qty:1, price: Price 100 }
+    , LineItem { name: ProductName "lace", qty:1, price: Price 20 }
+    , LineItem { name: ProductName "sock", qty:1, price: Price 40 }
+    ]
+
+
+-- 6. implement a way to get a total price out of an Array of lineItems
 
 
 main :: Effect Unit
